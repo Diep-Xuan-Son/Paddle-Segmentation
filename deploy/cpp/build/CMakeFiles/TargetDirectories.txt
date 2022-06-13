@@ -1,0 +1,3 @@
+/home/son/AI/Briefcam/PaddleSeg/deploy/cpp/build/CMakeFiles/test_seg.dir
+/home/son/AI/Briefcam/PaddleSeg/deploy/cpp/build/CMakeFiles/edit_cache.dir
+/home/son/AI/Briefcam/PaddleSeg/deploy/cpp/build/CMakeFiles/rebuild_cache.dir

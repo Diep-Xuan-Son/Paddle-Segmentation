@@ -1,0 +1,5 @@
+onnxruntime va paddle2onnx o trong paddle_inference tai ve (third_party/install)
+copy:
+onnxruntime va paddle2onnx copy vao usr/local/(lib va include)
+mkldnn va mklml copy vao usr/lib/x86-64_linuxgnu
+
