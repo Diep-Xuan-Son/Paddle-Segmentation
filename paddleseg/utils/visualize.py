@@ -22,7 +22,6 @@ from matplotlib import pyplot as plt    ##them
 from sklearn.cluster import KMeans
 
 def rgb_to_hsv(r, g, b):
-
     # R, G, B values are divided by 255
     # to change the range from 0..255 to 0..1:
     r, g, b = r / 255.0, g / 255.0, b / 255.0
@@ -94,7 +93,7 @@ def find_color(h,s,v):
         else:
             color = "Grey"
     elif(42<=v<60):
-        if(s>16):
+        if(s>15):
             if(0<=h<10 or 360>=h>340):
                 if(s<25):
                     color = 'Brown'
@@ -175,14 +174,19 @@ def dominantcolor(im, result, label):    #them
     dict_attribute = {0:'background',1:'skin',2:'bag',3:'pant',4:'shirt',5:'shoe',6:'skirt',7:'glasses',8:'hair',9:'hat'}
     km = KMeans(n_clusters=3)
     im_attribute = im[result == label]   #them
+    if(len(im_attribute) > 10000):
+        im_attribute = im_attribute[np.random.choice(im_attribute.shape[0], int(len(im_attribute)/50), replace=False), :]
+    elif(len(im_attribute) > 1000):
+        im_attribute = im_attribute[np.random.choice(im_attribute.shape[0], int(len(im_attribute)/5), replace=False), :]
+    print(len(im_attribute))
     try:
         km.fit(im_attribute)
         colors = np.asarray(km.cluster_centers_, dtype='uint8')
         # print(colors)
+        # print(np.unique(km.labels_, return_counts = True)[1])
         percentage = np.asarray(np.unique(km.labels_, return_counts = True)[1], dtype='float32')
         percentage = percentage/im_attribute.shape[0]
         # print(percentage)
-        # print(colors[percentage == max(percentage)])
         colors = colors[percentage == max(percentage)]
         h,s,v = rgb_to_hsv(colors[0][0],colors[0][1],colors[0][2])
         print(h,s,v)
@@ -210,9 +214,6 @@ def visualize(image, result, color_map, save_dir=None, weight=0.6):
 
     color_map = [color_map[i:i + 3] for i in range(0, len(color_map), 3)]
     color_map = np.array(color_map).astype("uint8")
-    # print(color_map.shape)
-    # print(result.shape)
-    # print(np.argwhere(result == 0))
     # Use OpenCV LUT for color mapping
     c1 = cv2.LUT(result, color_map[:, 0])
     c2 = cv2.LUT(result, color_map[:, 1])
@@ -222,31 +223,42 @@ def visualize(image, result, color_map, save_dir=None, weight=0.6):
     im = cv2.imread(image)
     #----------------------------------------------------
     print(image)
-    im = cv2.cvtColor(im, cv2.COLOR_RGB2BGR)    ##them
+    im = cv2.cvtColor(im, cv2.COLOR_RGB2BGR)    ##them  #chuyen sang BGR der co dang RGB dua vao tim hsv (co the do opencv bi loi, opencv ben C++ khong can convert)
     # im = cv2.resize(im, (192,128), interpolation = cv2.INTER_AREA)  #them 
-    # im[result != 4] = 0       
-    # cv2.imshow('acsc',im)
-    # cv2.waitKey()
+    # km = KMeans(n_clusters=3)
+    # im1 = im.reshape(-1,3)
+    # km.fit(im1)
+    # colors = np.asarray(km.cluster_centers_, dtype='uint8')
+    # print(colors)
+    # print(np.unique(km.labels_, return_counts = True)[1])
+    # percentage = np.asarray(np.unique(km.labels_, return_counts = True)[1], dtype='float32')
+    # percentage = percentage/im1.shape[0]
+    # colors = colors[percentage == max(percentage)]
+    # h,s,v = rgb_to_hsv(colors[0][0],colors[0][1],colors[0][2])
+    # print(h,s,v)
     # exit()
-    
-    list_attribute = ['pant', 'shirt', 'shoe', 'skirt', 'hair']
+    # ['background','skin','bag','pant','shirt','shoe','skirt','glasses','hair','hat']
+    list_attribute = [3,4,5,6,8]
 
-    if 'skin' in list_attribute:
-        color_skin = dominantcolor(im, result, 1)
-    if 'bag' in list_attribute:
-        color_bag = dominantcolor(im, result, 2)
-    if 'pant' in list_attribute:
-        color_pant = dominantcolor(im, result, 3)
-    if 'shirt' in list_attribute:
-        color_shirt = dominantcolor(im, result, 4)
-    if 'shoe' in list_attribute:
-        color_shoe = dominantcolor(im, result, 5)
-    if 'skirt' in list_attribute:
-        color_skirt = dominantcolor(im, result, 6)
-    if 'hair' in list_attribute:
-        color_hair = dominantcolor(im, result, 8)
-    if 'hat' in list_attribute:
-        color_hat = dominantcolor(im, result, 9)
+    for at in list_attribute:
+        color_skin = dominantcolor(im, result, at)
+
+    # if 'skin' in list_attribute:
+    #     color_skin = dominantcolor(im, result, 1)
+    # if 'bag' in list_attribute:
+    #     color_bag = dominantcolor(im, result, 2)
+    # if 'pant' in list_attribute:
+    #     color_pant = dominantcolor(im, result, 3)
+    # if 'shirt' in list_attribute:
+    #     color_shirt = dominantcolor(im, result, 4)
+    # if 'shoe' in list_attribute:
+    #     color_shoe = dominantcolor(im, result, 5)
+    # if 'skirt' in list_attribute:
+    #     color_skirt = dominantcolor(im, result, 6)
+    # if 'hair' in list_attribute:
+    #     color_hair = dominantcolor(im, result, 8)
+    # if 'hat' in list_attribute:
+    #     color_hat = dominantcolor(im, result, 9)
 
     # colors = np.expand_dims(color, axis=0)
     # plt.figure(0)
