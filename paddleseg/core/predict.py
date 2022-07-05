@@ -43,6 +43,7 @@ def predict(model,
             image_list,
             image_dir=None,
             save_dir='output',
+            size_pixel=45000,
             aug_pred=False,
             scales=1.0,
             flip_horizontal=True,
@@ -93,7 +94,14 @@ def predict(model,
             # print(im_path)
             start_time = time.time()  
             im = cv2.imread(im_path)
-            # im = cv2.resize(im, (192,128), interpolation = cv2.INTER_AREA)  #them
+
+            size_crop = None
+            if(im.shape[0]*im.shape[1]>size_pixel):
+                ratio_crop = math.sqrt(im.shape[0]*im.shape[1]/size_pixel)
+                size_crop = (round(im.shape[1]/ratio_crop), round(im.shape[0]/ratio_crop))  #(w,h)
+                im = cv2.resize(im, size_crop, interpolation = cv2.INTER_AREA)  #them
+            # im = cv2.resize(im, (150,330), interpolation = cv2.INTER_AREA)  #them
+
             ori_shape = im.shape[:2]
             # print(ori_shape)
             im, _ = transforms(im)
@@ -136,7 +144,7 @@ def predict(model,
 
             # save added image
             added_image = utils.visualize.visualize(
-                im_path, pred, color_map, weight=0.6)   #them trong visualize
+                im_path, pred, color_map, weight=0.6, size_crop=size_crop)   #them trong visualize
             added_image_path = os.path.join(added_saved_dir, im_file)
             mkdir(added_image_path)
             cv2.imwrite(added_image_path, added_image)

@@ -283,4 +283,17 @@ CMakeFiles/test_seg.dir/src/test_seg.cc.o: \
  /usr/local/include/opencv4/opencv2/imgproc/segmentation.hpp \
  /usr/local/include/opencv4/opencv2/highgui.hpp \
  /usr/local/include/opencv4/opencv2/imgcodecs.hpp \
- /usr/local/include/opencv4/opencv2/videoio.hpp
+ /usr/local/include/opencv4/opencv2/videoio.hpp \
+ /usr/include/c++/7/experimental/filesystem \
+ /usr/include/c++/7/experimental/bits/fs_fwd.h \
+ /usr/include/c++/7/experimental/bits/fs_path.h /usr/include/c++/7/locale \
+ /usr/include/c++/7/bits/locale_facets_nonio.h \
+ /usr/include/x86_64-linux-gnu/c++/7/bits/time_members.h \
+ /usr/include/x86_64-linux-gnu/c++/7/bits/messages_members.h \
+ /usr/include/libintl.h /usr/include/c++/7/bits/locale_facets_nonio.tcc \
+ /usr/include/c++/7/bits/locale_conv.h \
+ /usr/include/c++/7/bits/stringfwd.h /usr/include/c++/7/bits/allocator.h \
+ /usr/include/c++/7/bits/codecvt.h /usr/include/c++/7/bits/unique_ptr.h \
+ /usr/include/c++/7/codecvt /usr/include/c++/7/bits/quoted_string.h \
+ /usr/include/c++/7/experimental/bits/fs_dir.h \
+ /usr/include/c++/7/experimental/bits/fs_ops.h

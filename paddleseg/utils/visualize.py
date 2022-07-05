@@ -178,7 +178,7 @@ def dominantcolor(im, result, label):    #them
         im_attribute = im_attribute[np.random.choice(im_attribute.shape[0], int(len(im_attribute)/50), replace=False), :]
     elif(len(im_attribute) > 1000):
         im_attribute = im_attribute[np.random.choice(im_attribute.shape[0], int(len(im_attribute)/5), replace=False), :]
-    print(len(im_attribute))
+    # print(len(im_attribute))
     try:
         km.fit(im_attribute)
         colors = np.asarray(km.cluster_centers_, dtype='uint8')
@@ -197,7 +197,7 @@ def dominantcolor(im, result, label):    #them
         print("Dont't have " + dict_attribute[label])
     
 
-def visualize(image, result, color_map, save_dir=None, weight=0.6):
+def visualize(image, result, color_map, save_dir=None, weight=0.6, size_crop=None):
     """
     Convert predict result to color image, and save added image.
 
@@ -224,7 +224,10 @@ def visualize(image, result, color_map, save_dir=None, weight=0.6):
     #----------------------------------------------------
     print(image)
     im = cv2.cvtColor(im, cv2.COLOR_RGB2BGR)    ##them  #chuyen sang BGR der co dang RGB dua vao tim hsv (co the do opencv bi loi, opencv ben C++ khong can convert)
-    # im = cv2.resize(im, (192,128), interpolation = cv2.INTER_AREA)  #them 
+    if size_crop != None:
+        im = cv2.resize(im, size_crop, interpolation = cv2.INTER_AREA)  #them 
+    # im = cv2.resize(im, (150,330), interpolation = cv2.INTER_AREA)  #them 
+    
     # km = KMeans(n_clusters=3)
     # im1 = im.reshape(-1,3)
     # km.fit(im1)
@@ -240,8 +243,8 @@ def visualize(image, result, color_map, save_dir=None, weight=0.6):
     # ['background','skin','bag','pant','shirt','shoe','skirt','glasses','hair','hat']
     list_attribute = [3,4,5,6,8]
 
-    for at in list_attribute:
-        color_skin = dominantcolor(im, result, at)
+    for attr in list_attribute:
+        color_skin = dominantcolor(im, result, attr)
 
     # if 'skin' in list_attribute:
     #     color_skin = dominantcolor(im, result, 1)

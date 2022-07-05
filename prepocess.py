@@ -44,7 +44,7 @@ def change_class(x):    #them
     hair = [19]
     hat = [20]
 
-    # list_label = ['background','skin','bag','pant','shirt','shoe','skirt','glasses','hair','hat']
+    # list_label = [0:'background',1:'skin',2:'bag',3:'pant',4:'shirt',5:'shoe',6:'skirt',7:'glasses',8:'hair',9:'hat']
     dict_label = {  '0':[0],
                     '1':[1, 9, 15, 18, 29, 34, 41, 44, 56, 57],
                     '2':[2, 33],

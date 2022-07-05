@@ -1,36 +1,41 @@
 shortcut:
-  about: Q
   auto_save: X
   change_output_dir: Shift+Z
   clear: Ctrl+Shift+Z
-  clear_label: ''
+  clear_label_list: ''
   clear_recent: ''
   close: Ctrl+W
-  data_worker: ''
+  data_widget: ''
   del_active_polygon: Backspace
+  del_all_polygon: ''
   edit_shortcuts: E
+  export_label_list: ''
   finish_object: Space
-  grid_ann: ''
-  label_worker: ''
+  grid_ann_widget: ''
+  import_label_list: ''
+  label_widget: ''
   largest_component: ''
-  load_label: ''
   load_param: Ctrl+M
-  medical_worker: ''
-  model_worker: ''
+  mi_widget: ''
+  model_widget: ''
   open_folder: Shift+A
   open_image: Ctrl+A
   origional_extension: ''
   quick_start: ''
   quit: ''
   redo: Ctrl+Y
-  remote_worker: ''
-  save: ''
+  report_bug: ''
+  rs_widget: ''
+  save: Shift+S
   save_as: ''
   save_coco: ''
+  save_cutout: ''
+  save_grayscale: ''
   save_json: ''
-  save_label: ''
   save_pseudo: ''
-  set_worker: ''
+  segmentation_widget: ''
+  set_cutout_background: ''
+  toggle_logging: ''
   turn_next: F
   turn_prev: S
   undo: Ctrl+Z

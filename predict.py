@@ -24,7 +24,6 @@ from paddleseg.transforms import Compose
 
 import time
 
-
 def parse_args():
     parser = argparse.ArgumentParser(description='Model prediction')
 
@@ -86,7 +85,7 @@ def parse_args():
         nargs=2,
         help='The crop size of sliding window, the first is width and the second is height.',
         type=int,
-        default=[512,256])
+        default=None)
     parser.add_argument(
         '--stride',
         dest='stride',
@@ -172,6 +171,7 @@ def main(args):
 
     test_config = get_test_config(cfg, args)
 
+    size_pixel = 96000
     start_time = time.time()
     predict(
         model,
@@ -180,6 +180,7 @@ def main(args):
         image_list=image_list,
         image_dir=image_dir,
         save_dir=args.save_dir,
+        size_pixel=size_pixel,
         **test_config)
 
     print("Total time: ", time.time() - start_time)
@@ -192,4 +193,5 @@ if __name__ == '__main__':
 
 # python predict.py --config ./configs/pp_liteseg/pp_liteseg_stdc1_cityscapes_1024x512_scale1.0_160k.yml --model_path ./weights/model.pdparams --image_path ./data_test --save_dir ./output/result
 # python predict.py --config ./configs/pp_liteseg/test.yml --model_path ./weights/clothing320000iter.pdparams --image_path ./data_cloth_test --save_dir ./output/result
-# python predict.py --config ./configs/pp_liteseg/test.yml --model_path ./weights/clothing10000iter5label.pdparams --image_path ./data_test/01 --save_dir ./output/result
+# python predict.py --config ./configs/pp_liteseg/test.yml --model_path ./weights/clothing160000iter10label.pdparams --image_path ./data_test/01 --save_dir ./output/result
+# python predict.py --config ./configs/pp_liteseg/test.yml --model_path ./weights/clothing160000iter10label_mq1.pdparams --image_path /home/son/AI/Briefcam/Data_custom/cam_9_2022_07_04_person_img --save_dir /home/son/AI/Briefcam/Data_custom/cam_9_2022_07_04_person_pixel
